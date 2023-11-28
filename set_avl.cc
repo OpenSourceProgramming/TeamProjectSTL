@@ -8,6 +8,7 @@
 void SetAVL::Minimum(const int key)
 {
     NodeAVL* n = root_;
+    // key를 root로 하는 node찾기
     while(n != nullptr)
         {
             if(key == n->GetNum())
@@ -17,6 +18,7 @@ void SetAVL::Minimum(const int key)
             else
                 n = n->GetRight()
         }
+    // subtree에서 최솟값을 갖는 node찾기
     while(n && n->GetLeft() !== null)
         {
             n = n->GetLeft();
