@@ -59,6 +59,9 @@ private:
     // 해당 node의 depth를 return
     int getDepth(NodeAVL* node);
 
+    // key값을 가지고 있는 해당 node의 depth를 return
+    int findDepth(NodeAVL *node, int key, int depth);
+
     // new_node부터 root node까지 balance factor를 계산함
     // balance factor의 절댓값이 2 이상인 경우 Restructuring을 진행
     void Restructuring(NodeAVL* new_node);
