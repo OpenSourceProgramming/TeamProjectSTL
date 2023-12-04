@@ -46,6 +46,46 @@ private:
 
     // Set의 root node
     NodeAVL* root_;
+
+    // 해당 node의 height를 재설정
+    void UpdateHeight(NodeAVL* node);
+
+    // start_node부터 root node까지 모든 node의 height 갱신
+    void UpdateHeightUntilRoot(NodeAVL* start_node);
+
+    // 해당 node의 (left subtree의 height) - (right subtree의 height)의 값을 return
+    int GetBalanceFactor(NodeAVL* node);
+
+    // 해당 node의 depth를 return
+    int getDepth(NodeAVL* node);
+
+    // new_node부터 root node까지 balance factor를 계산함
+    // balance factor의 절댓값이 2 이상인 경우 Restructuring을 진행
+    void Restructuring(NodeAVL* new_node);
+
+    // Left Left Case에 대하여 restructuring 진행
+    void RestructuringForLeftLeftCase(
+        NodeAVL* current_node,
+        NodeAVL* parent_node,
+        NodeAVL* grand_parent_node);
+
+    // Left Right Case에 대하여 restructuring 진행
+    void RestructuringForLeftRightCase(
+        NodeAVL* current_node,
+        NodeAVL* parent_node,
+        NodeAVL* grand_parent_node);
+
+    // Right Left Case에 대하여 restructuring 진행
+    void RestructuringForRightLeftCase(
+        NodeAVL* current_node,
+        NodeAVL* parent_node,
+        NodeAVL* grand_parent_node);
+
+    // Right Right Case에 대하여 restructuring 진행
+    void RestructuringForRightRightCase(
+        NodeAVL* current_node,
+        NodeAVL* parent_node,
+        NodeAVL* grand_parent_node);
 };
 
 #endif
