@@ -7,23 +7,23 @@
 // key를 root로 하는 subtree에서 최솟값을 갖는 node의 값과 depth를 출력
 void SetAVL::Minimum(const int key)
 {
-    NodeAVL* n = root_;
+    NodeAVL* node = root_;
     // key를 root로 하는 node찾기
-    while(n != nullptr)
-        {
-            if(key == n->GetNum())
-                break;
-            else if(key < n->GetNum())
-                n = n->GetLeft();
-            else
-                n = n->GetRight()
-        }
+    while(node != nullptr)
+    {
+        if(key == node->GetNum())
+             break;
+        else if(key < node->GetNum())
+            node = node->GetLeft();
+        else
+            node = node->GetRight()
+    }
     // subtree에서 최솟값을 갖는 node찾기
-    while(n !== null && n->GetLeft() !== null)
-        {
-            n = n->GetLeft();
-        }
-    printf("key : %d, depth : %d", n->GetNum(), SetAVL::Find(key));
+    while(node !== nullptr && node->GetLeft() !== nullptr)
+    {
+        node = node->GetLeft();
+    }
+    std::cout << "key : " << node->GetNum() << ", depth : " << Find(key);
 }
 
 // key를 root로 하는 subtree에서 최댓값을 갖는 node의 값과 depth를 출력
