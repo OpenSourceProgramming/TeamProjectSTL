@@ -33,7 +33,7 @@ int SetAVL::findDepth(NodeAVL *node, int key, int depth)
     {
         return depth;
     }
-    if (key < node->GetNum())
+    else if (key < node->GetNum())
     {
         return findDepth(node->GetLeft(), key, depth + 1);
     }
