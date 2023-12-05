@@ -20,7 +20,7 @@ void SetAVL::Maximum(const int key)
 int SetAVL::Find(const int key)
 {
     int depth = findDepth(root_, key, 0);
-    std::cout << depth << "\n";
+    return depth;
 }
 
 int SetAVL::findDepth(NodeAVL *node, int key, int depth)
