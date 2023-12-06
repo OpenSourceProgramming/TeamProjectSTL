@@ -26,7 +26,7 @@ public:
     virtual int Find(const int key) = 0;
 
     // num을 삽입하고 해당 node의 depth를 출력
-    virtual void Insert(const int num) = 0;
+    virtual int Insert(const int num) = 0;
 
     // Advanced 기능
     // 해당 key를 가지고 있는 node의 depth와 rank를 출력

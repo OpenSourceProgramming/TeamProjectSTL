@@ -31,7 +31,7 @@ public:
     int Find(const int key) override final;
 
     // num을 삽입하고 해당 node의 depth를 출력
-    void Insert(const int num) override final;
+    int Insert(const int num) override final;
 
     // Advanced 기능
     // 해당 key를 가지고 있는 node의 depth와 rank를 출력
