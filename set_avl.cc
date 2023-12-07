@@ -24,12 +24,20 @@ void SetAVL::Maximum(const int key)
         else
             node = node->GetRight();
     }
+
+    // Set에 존재하지 않는 원소에 대한 처리
+    if(node == nullptr)
+    {
+        std::cout << "-1, -1" << std::endl;
+        return;
+    }
+    
     // subtree에서 최댓값을 갖는 node찾기
     while(node != nullptr && node->GetRight() != nullptr)
     {
         node = node->GetRight();
     }
-    std::cout << "key : " << node->GetNum() << ", depth : " << Find(key);
+    std::cout << node->GetNum() << " " << Find(node->GetNum());
 }
 
 // 해당 key를 가지고 있는 node의 depth를 return
