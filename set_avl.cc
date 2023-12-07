@@ -60,7 +60,7 @@ int SetAVL::findDepth(NodeAVL *node, int key, int depth)
 }
 
 // num을 삽입하고 해당 node의 depth를 출력
-void SetAVL::Insert(const int num)
+int SetAVL::Insert(const int num)
 {
     if (root_ == nullptr)
     {
@@ -73,7 +73,7 @@ void SetAVL::Insert(const int num)
 
         // 새로 삽입한 node의 depth 출력
         // root node의 depth는 0으로 정의
-        std::cout << "0\n";
+        return 0;
     }
     else
     {
@@ -88,7 +88,7 @@ void SetAVL::Insert(const int num)
                 // 삽입하려고 하는 원소가 이미 Set에 들어있음
                 // new_node 메모리 해제
                 delete new_node;
-                break;
+                return -1;
             }
             else if (num < current_node->GetNum())
             {
@@ -115,9 +115,8 @@ void SetAVL::Insert(const int num)
                     // balance factor의 절댓값이 2 이상인 경우 Restructuring을 진행
                     Restructuring(new_node);
 
-                    // 새로 삽입한 node의 depth 출력
-                    std::cout << getDepth(new_node) << "\n";
-                    break;
+                    // 새로 삽입한 node의 depth를 return
+                    return getDepth(new_node);
                 }
                 else
                 {
@@ -151,9 +150,8 @@ void SetAVL::Insert(const int num)
                     // balance factor의 절댓값이 2 이상인 경우 Restructuring을 진행
                     Restructuring(new_node);
 
-                    // 새로 삽입한 node의 depth 출력
-                    std::cout << getDepth(new_node) << "\n";
-                    break;
+                    // 새로 삽입한 node의 depth를 return
+                    return getDepth(new_node);
                 }
                 else
                 {
