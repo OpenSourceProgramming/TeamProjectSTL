@@ -18,6 +18,14 @@ void SetAVL::Minimum(const int key)
         else
             node = node->GetRight()
     }
+
+     // Set에 존재하지 않는 원소에 대한 처리
+    if(node == nullptr)
+    {
+        std::cout << "-1, -1" << std::endl;
+        return;
+    }
+    
     // subtree에서 최솟값을 갖는 node찾기
     while(node !== nullptr && node->GetLeft() !== nullptr)
     {
