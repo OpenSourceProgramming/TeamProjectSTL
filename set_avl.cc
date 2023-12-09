@@ -31,7 +31,7 @@ void SetAVL::Minimum(const int key)
     {
         node = node->GetLeft();
     }
-    std::cout << "key : " << node->GetNum() << ", depth : " << Find(key);
+    std::cout << node->GetNum() << " " << Find(node->GetNum());
 }
 
 // key를 root로 하는 subtree에서 최댓값을 갖는 node의 값과 depth를 출력
