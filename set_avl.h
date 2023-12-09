@@ -31,7 +31,7 @@ public:
     int Find(const int key) override final;
 
     // num을 삽입하고 해당 node의 depth를 출력
-    void Insert(const int num) override final;
+    int Insert(const int num) override final;
 
     // Advanced 기능
     // 해당 key를 가지고 있는 node의 depth와 rank를 출력
@@ -58,6 +58,9 @@ private:
 
     // 해당 node의 depth를 return
     int getDepth(NodeAVL* node);
+
+    // key값을 가지고 있는 해당 node의 depth를 return
+    int findDepth(NodeAVL *node, int key, int depth);
 
     // new_node부터 root node까지 balance factor를 계산함
     // balance factor의 절댓값이 2 이상인 경우 Restructuring을 진행
