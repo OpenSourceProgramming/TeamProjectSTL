@@ -27,7 +27,7 @@ void SetAVL::Minimum(const int key)
     }
     
     // subtree에서 최솟값을 갖는 node찾기
-    while(node !== nullptr && node->GetLeft() !== nullptr)
+    while(node != nullptr && node->GetLeft() != nullptr)
     {
         node = node->GetLeft();
     }
