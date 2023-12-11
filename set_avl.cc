@@ -21,11 +21,11 @@ void SetAVL::Minimum(const int key)
     while(node != nullptr)
     {
         if(key == node->GetNum())
-             break;
+            break;
         else if(key < node->GetNum())
             node = node->GetLeft();
         else
-            node = node->GetRight()
+            node = node->GetRight();
     }
 
      // Set에 존재하지 않는 원소에 대한 처리
