@@ -205,7 +205,90 @@ int SetAVL::Insert(const int num)
     }
 }
 
-// 해당 node의 height를 재설정
+// 해당 key를 가지고 있는 node의 depth와 rank를 출력
+// rank: Set에서 해당 node보다 작은 key 값을 가진 node의 개수 + 1
+void SetAVL::Rank(const int num)
+{
+
+}
+
+// 해당 key를 가지고 있는 노드를 삭제하고 해당 노드의 depth를 return
+int SetAVL::Erase(const int num)
+{
+    // 삭제하려고 하는 노드
+    NodeAVL* erase_node = root_;
+
+    // 삭제하려고 하는 노드를 검색
+    while (1)
+    {
+        if (num == erase_node->GetNum())
+        {
+            // 삭제하려고 하는 node를 찾음
+            break;
+        }
+        else if (num < erase_node->GetNum())
+        {
+            // Left Child로 이동
+            if (erase_node->GetLeft() == nullptr)
+            {
+                // Left Child가 없는 경우
+                // 삭제하려고 하는 노드를 찾지 못함
+                return -1;
+            }
+            else
+            {
+                // Left Child가 있는 경우
+                // Left Child로 이동
+                erase_node = erase_node->GetLeft();
+            }
+        }
+        else
+        {
+            // Right Child로 이동
+            if (erase_node->GetRight() == nullptr)
+            {
+                // Right Child가 없는 경우
+                // 삭제하려고 하는 노드를 찾지 못함
+                return -1;
+            }
+            else
+            {
+                // Right Child가 있는 경우
+                // Right Child로 이동
+                erase_node = erase_node->GetRight();
+            }
+        }
+    }
+
+    // 삭제하려고 하는 노드의 depth를 저장
+    int erase_node_depth = getDepth(erase_node);
+
+    if ((erase_node->GetLeft() == nullptr)
+    && (erase_node->GetRight() == nullptr))
+    {
+        // 삭제하려고 하는 노드의 자식이 없는 경우
+        EraseNodeThatHasNoChild(erase_node);
+    }
+    else if ((erase_node->GetLeft() != nullptr)
+    && (erase_node->GetRight() != nullptr))
+    {
+        // 삭제하려고 하는 노드의 자식이 2개인 경우
+        EraseNodeThatHasTwoChildren(erase_node);
+    }
+    else
+    {
+        // 삭제하려고 하는 노드의 자식이 1개인 경우
+        EraseNodeThatHasOnlyOneChild(erase_node);
+    }
+
+    // 원소의 개수 1 감소
+    size_--;
+
+    // 삭제한 노드의 depth를 return
+    return erase_node_depth;
+}
+
+// 해당 node의 height를 재설정`
 void SetAVL::UpdateHeight(NodeAVL* node)
 {
     // left subtree의 height
@@ -676,4 +759,22 @@ void SetAVL::RestructuringForRightRightCase(
 
     // grand_parent_node부터 root까지 height 재설정
     UpdateHeightUntilRoot(grand_parent_node);
+}
+
+// node를 삭제 (node의 자식이 없는 경우)
+void SetAVL::EraseNodeThatHasNoChild(NodeAVL* node)
+{
+    
+}
+
+// node를 삭제 (node의 자식이 1개만 있는 경우)
+void SetAVL::EraseNodeThatHasOnlyOneChild(NodeAVL* node)
+{
+    
+}
+
+// node를 삭제 (node의 자식이 2개 있는 경우)
+void SetAVL::EraseNodeThatHasTwoChildren(NodeAVL* node)
+{
+    
 }
