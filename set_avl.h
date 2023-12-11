@@ -45,10 +45,10 @@ public:
     // Advanced 기능
     // 해당 key를 가지고 있는 node의 depth와 rank를 출력
     // rank: Set에서 해당 node보다 작은 key 값을 가진 node의 개수 + 1
-    // void GetRank(const int num) override final;
+    void Rank(const int num) override final;
 
-    // 해당 key를 가지고 있는 node의 depth를 출력하고 해당 노드를 삭제
-    // void Erase(const int num) override final;
+    // 해당 key를 가지고 있는 노드를 삭제하고 해당 노드의 depth를 return
+    int Erase(const int num) override final;
 private:
     // Set에 들어있는 원소의 개수
     int size_;
@@ -98,6 +98,15 @@ private:
         NodeAVL* current_node,
         NodeAVL* parent_node,
         NodeAVL* grand_parent_node);
+
+    // node를 삭제 (node의 자식이 없는 경우)
+    void EraseNodeThatHasNoChild(NodeAVL* node);
+
+    // node를 삭제 (node의 자식이 1개만 있는 경우)
+    void EraseNodeThatHasOnlyOneChild(NodeAVL* node);
+
+    // node를 삭제 (node의 자식이 2개 있는 경우)
+    void EraseNodeThatHasTwoChildren(NodeAVL* node);
 };
 
 #endif
