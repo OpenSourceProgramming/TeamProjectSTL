@@ -40,10 +40,10 @@ public:
     // Advanced 기능
     // 해당 key를 가지고 있는 node의 depth와 rank를 출력
     // rank: Set에서 해당 node보다 작은 key 값을 가진 node의 개수 + 1
-    // virtual void GetRank(const int num) = 0;
+    virtual void Rank(const int num) = 0;
 
-    // 해당 key를 가지고 있는 node의 depth를 출력하고 해당 노드를 삭제
-    // virtual void Erase(const int num) = 0;
+    // 해당 key를 가지고 있는 노드를 삭제하고 해당 노드의 depth를 return
+    virtual int Erase(const int num) = 0;
 };
 
 #endif
