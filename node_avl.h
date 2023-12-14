@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT.
  *
  * Contributors: Lee Seung-Bin
- * Latest Updated on 2023-11-23
+ * Latest Updated on 2023-12-14
 **************************************************/
 
 #ifndef NODE_AVL_H
@@ -27,6 +27,7 @@ public:
         parent_(nullptr), left_(nullptr), 
         right_(nullptr) {}
     ~NodeAVL() {}
+    void SetNum(const int num) { num_ = num; }
     void SetParent(NodeAVL* parent) { parent_ = parent; }
     void SetHeight(const int height) { height_ = height; }
     void SetLeft(NodeAVL* left) { left_ = left; }
