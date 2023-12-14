@@ -86,6 +86,7 @@ int SetAVL::findDepth(NodeAVL *node, int key, int depth)
     {
         return 0;
     }
+
     if (key == node->GetNum())
     {
         return depth;
@@ -776,5 +777,179 @@ void SetAVL::EraseNodeThatHasOnlyOneChild(NodeAVL* node)
 // node를 삭제 (node의 자식이 2개 있는 경우)
 void SetAVL::EraseNodeThatHasTwoChildren(NodeAVL* node)
 {
+    NodeAVL* successor = FindSuccessor(node);
+
+    // successor의 부모 노드 저장
+    NodeAVL* parent_of_successor = successor->GetParent();
+
+    // node에 있는 key 값을 successor에 있는 key값으로 대체
+    node->SetNum(successor->GetNum());
+
+    // successor를 삭제
+    // successor의 parent 노드가 없는 경우는 존재하지 않음
+    // successor의 parent 노드와 successor의 right child를 연결함
+    if (parent_of_successor->GetLeft() == successor)
+    {
+        parent_of_successor->SetLeft(successor->GetRight());
+    }
+    else
+    {
+        parent_of_successor->SetRight(successor->GetRight());
+    }
+
+    if (successor->GetRight() != nullptr)
+    {
+        successor->GetRight()->SetParent(parent_of_successor);
+    }
     
+    delete successor;
+
+    // parent_of_successor부터 루트 노드까지 height 갱신
+    UpdateHeightUntilRoot(parent_of_successor);
+
+    // 필요에 따라 Restructuring을 진행
+    RestructuringForErase(parent_of_successor);
+}
+
+// node의 successor를 찾음
+NodeAVL* SetAVL::FindSuccessor(NodeAVL* node)
+{
+    if (node->GetRight() == nullptr)
+    {
+        // node의 right child가 없을 경우 successor는 존재하지 않음
+        return nullptr;
+    }
+    else
+    {
+        NodeAVL* successor = node->GetRight();
+
+        // node의 right subtree에 있는 노드 중 key 값이 최소인 노드를 찾아서 return함
+        while (successor->GetLeft() != nullptr)
+        {
+            successor = successor->GetLeft();
+        }
+
+        return successor;
+    }
+}
+
+// Erase 기능을 수행할 때 필요에 따라 Restructuring을 진행함
+void SetAVL::RestructuringForErase(NodeAVL* node)
+{
+    // root node까지 balance factor를 계산함
+    // balance factor의 절댓값이 2 이상인 경우 Restructuring을 진행
+
+    NodeAVL* grand_parent_node = node;
+
+    while (1)
+    {
+        if (grand_parent_node == nullptr)
+        {
+            break;
+        }
+        else
+        {
+            int balance_factor_of_grand_parent_node = GetBalanceFactor(grand_parent_node);
+
+            if (std::abs(balance_factor_of_grand_parent_node) >= 2)
+            {
+                // Restructuring 필요
+                NodeAVL* parent_node = nullptr;
+                NodeAVL* child_node = nullptr;
+
+                if (balance_factor_of_grand_parent_node >= 2)
+                {
+                    // grand_parent_node의 left subtree의 height가 더 높음
+                    parent_node = grand_parent_node->GetLeft();
+                }
+                else
+                {
+                    // grand_parent_node의 right subtree의 height가 더 높음
+                    parent_node = grand_parent_node->GetRight();
+                }
+
+                int balance_factor_of_parent_node = GetBalanceFactor(parent_node);
+
+                if (balance_factor_of_parent_node > 0)
+                {
+                    // parent_node의 left subtree의 height가 더 높음
+                    child_node = parent_node->GetLeft();
+
+                    if (grand_parent_node->GetLeft() == parent_node)
+                    {
+                        // Restructuring 진행
+                        RestructuringForLeftLeftCase(
+                            child_node, parent_node, grand_parent_node);
+
+                        // grand_parent_node 재설정
+                        grand_parent_node = parent_node->GetParent();
+                    }
+                    else
+                    {
+                        // Restructuring 진행
+                        RestructuringForRightLeftCase(
+                            child_node, parent_node, grand_parent_node);
+
+                        // grand_parent_node 재설정
+                        grand_parent_node = child_node->GetParent();
+                    }
+                }
+                else if (balance_factor_of_parent_node < 0)
+                {
+                    // parent_node의 right subtree의 height가 더 높음
+                    child_node = parent_node->GetRight();
+
+                    if (grand_parent_node->GetLeft() == parent_node)
+                    {
+                        // Restructuring 진행
+                        RestructuringForLeftRightCase(
+                            child_node, parent_node, grand_parent_node);
+
+                        // grand_parent_node 재설정
+                        grand_parent_node = child_node->GetParent();
+                    }
+                    else
+                    {
+                        // Restructuring 진행
+                        RestructuringForRightRightCase(
+                            child_node, parent_node, grand_parent_node);
+
+                        // grand_parent_node 재설정
+                        grand_parent_node = parent_node->GetParent();
+                    }
+                }
+                else
+                {
+                    // parent_node의 left subtree와 right subtree의 높이가 같음
+                    // 연산의 수가 더 적은 single rotation을 이용하여 수행할 수 있도록 child_node를 선택함
+                    if (grand_parent_node->GetLeft() == parent_node)
+                    {
+                        child_node = parent_node->GetLeft();
+
+                        // Restructuring 진행
+                        RestructuringForLeftLeftCase(
+                            child_node, parent_node, grand_parent_node);
+
+                        // grand_parent_node 재설정
+                        grand_parent_node = parent_node->GetParent();
+                    }
+                    else
+                    {
+                        child_node = parent_node->GetRight();
+
+                        // Restructuring 진행
+                        RestructuringForRightRightCase(
+                            child_node, parent_node, grand_parent_node);
+
+                        // grand_parent_node 재설정
+                        grand_parent_node = parent_node->GetParent();
+                    }
+                }
+            }
+            else
+            {
+                grand_parent_node = grand_parent_node->GetParent();
+            }
+        }
+    }
 }
