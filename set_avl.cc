@@ -771,7 +771,51 @@ void SetAVL::EraseNodeThatHasNoChild(NodeAVL* node)
 // node를 삭제 (node의 자식이 1개만 있는 경우)
 void SetAVL::EraseNodeThatHasOnlyOneChild(NodeAVL* node)
 {
-    
+    if (node->GetLeft() != nullptr)
+    {
+        NodeAVL* child_of_node = node->GetLeft();
+        NodeAVL* parent_of_node = node->GetParent();
+        if (parent_of_node->GetNum() > child_of_node->GetNum())
+        {
+            if(parent_of_node == nullptr)
+                _root = child_of_node;
+            parent_of_node->SetLeft(child_of_node);
+            child_of_node->SetParent(parent_of_node);
+        }
+        else
+        {
+            if(parent_of_node == nullptr)
+                _root = child_of_node;
+            parent_of_node->SetRight(child_of_node);
+            child_of_node->SetParent(parent_of_node);
+        }
+        delete node;
+        UpdateHeightUntilRoot(parent_of_node);
+        RestructuringForErase(parent_of_node);
+    }
+    else
+    {
+        NodeAVL* child_of_node = node->GetRight();
+        NodeAVL* parent_of_node = node->GetParent();
+        if (parent_of_node->GetNum() > child_of_node->GetNum())
+        {
+            if(parent_of_node == nullptr)
+                _root = child_of_node;
+            parent_of_node->SetLeft(child_of_node);
+            child_of_node->SetParent(parent_of_node);
+        }
+        else
+        {
+            if(parent_of_node == nullptr)
+                _root = child_of_node;
+            parent_of_node->SetRight(child_of_node);
+            child_of_node->SetParent(parent_of_node);
+        }
+            
+        delete node;
+        UpdateHeightUntilRoot(parent_of_node);
+        RestructuringForErase(child_of_node->GetParent());
+    }
 }
 
 // node를 삭제 (node의 자식이 2개 있는 경우)
