@@ -6,7 +6,7 @@
 # https://opensource.org/licenses/MIT.
 #
 # Contributors: Lee Seung-Bin
-# Latest Updated on 2023-12-06
+# Latest Updated on 2023-12-15
 #####################################################
 
 # CMake 프로그램의 최소 버전
@@ -30,12 +30,9 @@ set (CMAKE_CXX_FLAGS "-O2 -Wall")
 find_package(GTest REQUIRED)
 message("GTest_INCLUDE_DIRS = ${GTest_INCLUDE_DIRS}")
 
-add_library(common_library set_avl.cc)
-
 # 실행 파일 설정
 # 실행 파일명은 main으로 설정
 add_executable (main main.cc)
-target_link_libraries(main common_library)
 
-add_executable(unitTestRunner test_runner.cc)
-target_link_libraries(unitTestRunner common_library ${GTEST_LIBRARIES})
+# add_executable(unitTestRunner test_runner.cc)
+# target_link_libraries(unitTestRunner common_library ${GTEST_LIBRARIES})
