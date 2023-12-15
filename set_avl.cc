@@ -775,19 +775,20 @@ void SetAVL::EraseNodeThatHasOnlyOneChild(NodeAVL* node)
     {
         NodeAVL* child_of_node = node->GetLeft();
         NodeAVL* parent_of_node = node->GetParent();
-        if (parent_of_node->GetNum() > child_of_node->GetNum())
-        {
-            if(parent_of_node == nullptr)
-                _root = child_of_node;
-            parent_of_node->SetLeft(child_of_node);
-            child_of_node->SetParent(parent_of_node);
-        }
+        if (parent_of_node == nullptr)
+            _root = child_of_node;
         else
         {
-            if(parent_of_node == nullptr)
-                _root = child_of_node;
-            parent_of_node->SetRight(child_of_node);
+            if (parent_of_node->GetNum() > child_of_node->GetNum())
+            {
+            parent_of_node->SetLeft(child_of_node);
             child_of_node->SetParent(parent_of_node);
+            }
+            else
+            {
+                parent_of_node->SetRight(child_of_node);
+                child_of_node->SetParent(parent_of_node);
+            } 
         }
         delete node;
         UpdateHeightUntilRoot(parent_of_node);
@@ -797,19 +798,20 @@ void SetAVL::EraseNodeThatHasOnlyOneChild(NodeAVL* node)
     {
         NodeAVL* child_of_node = node->GetRight();
         NodeAVL* parent_of_node = node->GetParent();
-        if (parent_of_node->GetNum() > child_of_node->GetNum())
-        {
-            if(parent_of_node == nullptr)
-                _root = child_of_node;
-            parent_of_node->SetLeft(child_of_node);
-            child_of_node->SetParent(parent_of_node);
-        }
+        if (parent_of_node == nullptr)
+            _root = child_of_node;
         else
         {
-            if(parent_of_node == nullptr)
-                _root = child_of_node;
-            parent_of_node->SetRight(child_of_node);
+            if (parent_of_node->GetNum() > child_of_node->GetNum())
+            {
+            parent_of_node->SetLeft(child_of_node);
             child_of_node->SetParent(parent_of_node);
+            }
+            else
+            {
+                parent_of_node->SetRight(child_of_node);
+                child_of_node->SetParent(parent_of_node);
+            } 
         }
             
         delete node;
