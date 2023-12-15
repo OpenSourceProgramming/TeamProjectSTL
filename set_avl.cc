@@ -781,8 +781,8 @@ void SetAVL::EraseNodeThatHasOnlyOneChild(NodeAVL* node)
         {
             if (parent_of_node->GetNum() > child_of_node->GetNum())
             {
-            parent_of_node->SetLeft(child_of_node);
-            child_of_node->SetParent(parent_of_node);
+                parent_of_node->SetLeft(child_of_node);
+                child_of_node->SetParent(parent_of_node);
             }
             else
             {
