@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT.
  *
  * Contributors: Lee Seung-Bin
- * Latest Updated on 2023-12-06
+ * Latest Updated on 2023-12-14
 **************************************************/
 
 #ifndef SET_AVL_H
@@ -107,6 +107,12 @@ private:
 
     // node를 삭제 (node의 자식이 2개 있는 경우)
     void EraseNodeThatHasTwoChildren(NodeAVL* node);
+
+    // node의 successor를 찾음
+    NodeAVL* FindSuccessor(NodeAVL* node);
+
+    // Erase 기능을 수행할 때 필요에 따라 Restructuring을 진행함
+    void RestructuringForErase(NodeAVL* node);
 };
 
 #endif
