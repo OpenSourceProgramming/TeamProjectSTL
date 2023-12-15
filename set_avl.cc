@@ -210,7 +210,41 @@ int SetAVL::Insert(const int num)
 // rank: Set에서 해당 node보다 작은 key 값을 가진 node의 개수 + 1
 void SetAVL::Rank(const int num)
 {
+    NodeAVL* root_node = root_;
+    int key = num;
+    int rank = 1;
 
+    RankTraversal(root_node, key, rank);
+    
+    int depth = Find(num);
+
+    if (depth == -1)
+        std::cout << "0\n";
+    else
+        std::cout << depth << " " << rank;
+}
+
+// AVL 트리 전위 순회
+void SetAVL::RankTraversal(NodeAVL* current_node, const int key, int& rank)
+{
+    if (current_node == nullptr)
+        return;
+    if (current_node->GetNum() < key)
+    {
+        rank++;
+
+        if (current_node->GetLeft() != nullptr)
+            RankTraversal(current_node->GetLeft(), key, rank);
+
+        if (current_node->GetRight() != nullptr)
+            RankTraversal(current_node->GetRight(), key, rank);
+    }
+    else
+    {
+        // right child는 탐색할 필요 없음
+        if (current_node->GetLeft() != nullptr)
+            RankTraversal(current_node->GetLeft(), key, rank);
+    }
 }
 
 // 해당 key를 가지고 있는 노드를 삭제하고 해당 노드의 depth를 return
