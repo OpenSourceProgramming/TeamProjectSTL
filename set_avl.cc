@@ -799,7 +799,7 @@ void SetAVL::RestructuringForRightRightCase(
 // node를 삭제 (node의 자식이 없는 경우)
 void SetAVL::EraseNodeThatHasNoChild(NodeAVL* node)
 {
-    
+    delete node;
 }
 
 // node를 삭제 (node의 자식이 1개만 있는 경우)
